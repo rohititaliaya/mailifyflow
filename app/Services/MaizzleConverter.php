@@ -45,9 +45,9 @@ class MaizzleConverter
 
         try {
 
-            if (config('mailifyflow.node_path') == null) {
-                throw new \Exception('Node.js path not set in config/mailifyflow.php');
-            }
+            // if (config('mailifyflow.node_path') == null) {
+            //     throw new \Exception('Node.js path not set in config/mailifyflow.php');
+            // }
 
             // Execute the process
             $process->mustRun();
