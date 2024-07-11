@@ -27,7 +27,7 @@ class AdminPanelProvider extends PanelProvider
         return $panel
             ->default()
             ->id('admin')
-            ->path('')
+            ->path('admin/login')
             ->login()
             ->defaultAvatarProvider(AvatarsProvider::class)
             ->tenant(\App\Models\Team::class, 'slug')
