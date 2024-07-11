@@ -4,9 +4,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
 
-Route::sesWebhooks('/webhooks/ses');
+// Route::sesWebhooks('/webhooks/ses');
 
-Route::post('/', function(Request $request) {
+Route::post('/webhooks/ses', function(Request $request) {
     $payload = $request->json()->all(); // Prefer JSON for structured data
 
     // ... (rest of your code handling SES events)
