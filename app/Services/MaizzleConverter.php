@@ -9,12 +9,12 @@ class MaizzleConverter
 {
     protected $maizzlePath;
 
-    protected $nodePath;
+    // protected $nodePath;
 
     public function __construct()
     {
         $this->maizzlePath = base_path('maizzle/renderMaizzle.js');
-        $this->nodePath = config('mailifyflow.node_path');
+        // $this->nodePath = config('mailifyflow.node_path');
     }
 
     /**
@@ -41,7 +41,7 @@ class MaizzleConverter
     public function convert(string $title, string $preheader, string $bodyClass, string $content)
     {
         // Create a new process to execute the script
-        $process = new Process([$this->nodePath, $this->maizzlePath, $title, $preheader, $content, $bodyClass]);
+        // $process = new Process([$this->nodePath, $this->maizzlePath, $title, $preheader, $content, $bodyClass]);
 
         try {
 
@@ -50,13 +50,13 @@ class MaizzleConverter
             // }
 
             // Execute the process
-            $process->mustRun();
+            // $process->mustRun();
 
             // Get the output
-            $output = $process->getOutput();
+            // $output = $process->getOutput();
 
             // Extract HTML content
-            $html = $this->extractHtml($output);
+            $html = $this->extractHtml($content);
 
             return $html;
         } catch (ProcessFailedException $exception) {

@@ -3,6 +3,7 @@
 namespace App\Filament\Admin\Resources\CampaignResource\Pages;
 
 use App\Filament\Admin\Resources\CampaignResource;
+use App\Mail\CommonMail;
 use App\Models\Template;
 use App\Services\MaizzleConverter;
 use Filament\Facades\Filament;
@@ -28,25 +29,29 @@ class CreateCampaign extends CreateRecord
         $team = Filament::getTenant();
         $template = Template::find($data['template_id']);
 
+
         $extractedHtmlCss = html_css_extractor($template->template_content, $data['campaign_content']);
 
-        try {
-            $convertedContent = MaizzleConverter::make()->convert(
-                $data['subject'],
-                $data['preheader'],
-                'bg-gray-50',
-                $extractedHtmlCss
-            );
-        } catch (\Exception $e) {
-            Notification::make()
-                ->danger()
-                ->title('Error converting HTML content')
-                ->body($e->getMessage())
-                ->persistent()
-                ->send();
+        $convertedContent = (new CommonMail($extractedHtmlCss))->render();
+    // dd($convertedContent);   
 
-            $this->halt();
-        }
+        // try {
+        //     $convertedContent = MaizzleConverter::make()->convert(
+        //         $data['subject'],
+        //         $data['preheader'],
+        //         'bg-gray-50',
+        //         $extractedHtmlCss
+        //     );
+        // } catch (\Exception $e) {
+        //     Notification::make()
+        //         ->danger()
+        //         ->title('Error converting HTML content')
+        //         ->body($e->getMessage())
+        //         ->persistent()
+        //         ->send();
+
+        //     $this->halt();
+        // }
 
         $data['team_id'] = $team->id;
         $data['converted_content'] = $convertedContent;
